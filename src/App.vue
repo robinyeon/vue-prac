@@ -8,7 +8,7 @@
     </ul>
   </div>
 
-  <Container :posts="posts" />
+  <Container :posts="posts" :step="step" />
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -30,6 +30,7 @@ export default {
     return {
       posts,
       count: 0,
+      step: 0,
     };
   },
   components: {
