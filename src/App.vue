@@ -16,11 +16,13 @@
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
+  <button @click="clickMoreBtn">More</button>
 </template>
 
 <script>
 import posts from "./assets/posts";
 import Container from "./components/Container.vue";
+import axios from "axios";
 
 export default {
   name: "App",
@@ -31,6 +33,14 @@ export default {
   },
   components: {
     Container,
+  },
+  methods: {
+    clickMoreBtn() {
+      axios
+        .get("https://codingapple1.github.io/vue/more0.json")
+        .then(({ data }) => this.posts.push(data))
+        .catch((err) => console.log(err));
+    },
   },
 };
 </script>
