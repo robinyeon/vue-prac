@@ -8,14 +8,15 @@
     </ul>
   </div>
 
-  <Container :posts="posts" :step="step" />
+  <Container :posts="posts" :step="step" :tempUrl="tempUrl" />
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="uploadImg" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
+
   <button @click="clickMoreBtn">More</button>
 </template>
 
@@ -31,6 +32,7 @@ export default {
       posts,
       count: 0,
       step: 0,
+      tempUrl: "",
     };
   },
   components: {
@@ -44,6 +46,12 @@ export default {
           this.posts.push(res.data);
           this.count++;
         });
+    },
+    uploadImg(e) {
+      let file = e.target.files;
+      let tempUrl = URL.createObjectURL(file[0]);
+      this.tempUrl = tempUrl;
+      this.step++;
     },
   },
 };

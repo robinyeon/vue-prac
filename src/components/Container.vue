@@ -5,7 +5,10 @@
     </div>
 
     <div v-if="step === 1">
-      <div class="upload-image"></div>
+      <div
+        class="upload-image"
+        :style="{ backgroundImage: `url(${tempUrl})` }"
+      ></div>
       <div class="filters">
         <div class="filter-1"></div>
         <div class="filter-1"></div>
@@ -31,6 +34,7 @@ export default {
   props: {
     posts: Array,
     step: Number,
+    tempUrl: String,
   },
   components: {
     Post,
