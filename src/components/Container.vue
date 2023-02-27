@@ -19,7 +19,10 @@
     </div>
 
     <div v-if="step === 2">
-      <div class="upload-image"></div>
+      <div
+        class="upload-image"
+        :style="{ backgroundImage: `url(${tempUrl})` }"
+      ></div>
       <div class="write">
         <textarea class="write-box">write!</textarea>
       </div>
@@ -31,6 +34,9 @@
 import Post from "./Post.vue";
 export default {
   name: "container",
+  data() {
+    return {};
+  },
   props: {
     posts: Array,
     step: Number,

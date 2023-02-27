@@ -4,7 +4,8 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step === 1" @click="step++">Next</li>
+      <li v-if="step === 2" @click="publish">Publish</li>
     </ul>
   </div>
 
@@ -52,6 +53,20 @@ export default {
       let tempUrl = URL.createObjectURL(file[0]);
       this.tempUrl = tempUrl;
       this.step++;
+    },
+    publish() {
+      const myPost = {
+        name: "Kim Hyun",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: "https://placeimg.com/640/480/arch",
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: "오늘 무엇을 했냐면요 아무것도 안했어요 🦦",
+        filter: "perpetua",
+      };
+      this.posts.unshift(myPost);
+      this.step = 0;
     },
   },
 };
