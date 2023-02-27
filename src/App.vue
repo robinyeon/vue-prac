@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       posts,
+      count: 0,
     };
   },
   components: {
@@ -37,9 +38,11 @@ export default {
   methods: {
     clickMoreBtn() {
       axios
-        .get("https://codingapple1.github.io/vue/more0.json")
-        .then(({ data }) => this.posts.push(data))
-        .catch((err) => console.log(err));
+        .get(`https://codingapple1.github.io/vue/more${this.count}.json`)
+        .then((res) => {
+          this.posts.push(res.data);
+          this.count++;
+        });
     },
   },
 };
