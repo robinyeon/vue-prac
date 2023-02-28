@@ -9,7 +9,12 @@
     </ul>
   </div>
 
-  <Container :posts="posts" :step="step" :tempUrl="tempUrl" />
+  <Container
+    @insertContent="writtenContent = $event"
+    :posts="posts"
+    :step="step"
+    :tempUrl="tempUrl"
+  />
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -19,6 +24,9 @@
   </div>
 
   <button @click="clickMoreBtn">More</button>
+
+  <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">More and more</button>
 </template>
 
 <script>
@@ -34,6 +42,8 @@ export default {
       count: 0,
       step: 0,
       tempUrl: "",
+      writtenContent: "",
+      clickedFilter: "",
     };
   },
   components: {
@@ -54,16 +64,19 @@ export default {
       this.tempUrl = tempUrl;
       this.step++;
     },
+    mounted() {
+      this.emitter.on("clickFilterBox", (data) => (this.clickedFilter = data));
+    },
     publish() {
       const myPost = {
-        name: "Kim Hyun",
+        name: "Kim JunHo",
         userImage: "https://placeimg.com/100/100/arch",
-        postImage: "https://placeimg.com/640/480/arch",
-        likes: 36,
-        date: "May 15",
+        postImage: this.tempUrl,
+        likes: 223,
+        date: "May 27",
         liked: false,
-        content: "오늘 무엇을 했냐면요 아무것도 안했어요 🦦",
-        filter: "perpetua",
+        content: this.writtenContent,
+        filter: this.clickedFilter,
       };
       this.posts.unshift(myPost);
       this.step = 0;
