@@ -6,36 +6,55 @@
 
     <div v-if="step === 1">
       <div
+        :class="clickedFilter"
         class="upload-image"
         :style="{ backgroundImage: `url(${tempUrl})` }"
       ></div>
       <div class="filters">
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
+        <FilterBox
+          :tempUrl="tempUrl"
+          v-for="(filter, idx) in filters"
+          :key="idx"
+          :filter="filter"
+        >
+          {{ filter }}
+        </FilterBox>
       </div>
     </div>
 
     <div v-if="step === 2">
       <div
+        :class="clickedFilter"
         class="upload-image"
         :style="{ backgroundImage: `url(${tempUrl})` }"
       ></div>
       <div class="write">
-        <textarea class="write-box">write!</textarea>
+        <textarea
+          @input="$emit('insertContent', $event.target.value)"
+          class="write-box"
+        >
+write!</textarea
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import FilterBox from "./FilterBox.vue";
 import Post from "./Post.vue";
+import filters from "../assets/filters.js";
+
 export default {
   name: "container",
   data() {
-    return {};
+    return {
+      filters,
+      clickedFilter: "",
+    };
+  },
+  mounted() {
+    this.emitter.on("clickFilterBox", (data) => (clickedFilter = data));
   },
   props: {
     posts: Array,
@@ -44,6 +63,7 @@ export default {
   },
   components: {
     Post,
+    FilterBox,
   },
 };
 </script>
