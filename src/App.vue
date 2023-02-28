@@ -24,6 +24,9 @@
   </div>
 
   <button @click="clickMoreBtn">More</button>
+
+  <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">More and more</button>
 </template>
 
 <script>
